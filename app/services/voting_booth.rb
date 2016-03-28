@@ -14,6 +14,7 @@ class VotingBooth
     unvote # to guarantee consistency
     set.add(@user)
     _update_counts
+    _send_notification
     self
   end
   
@@ -25,6 +26,10 @@ class VotingBooth
   end
 
   private
+
+  def _send_notification
+    EmailNotificationWorker.perform_async(@user.id, @movie.id)
+  end
 
   def _update_counts
     @movie.update(

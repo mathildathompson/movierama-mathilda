@@ -51,7 +51,9 @@ gem 'bootstrap-sass'
 gem 'omniauth' # Authentication
 gem 'omniauth-github'
 gem 'cancan'   # Authorisation
-
+gem 'sidekiq'
+gem 'sinatra', :require => nil
+gem 'airbrake', '~> 5.1'
 
 # Debugger
 gem 'pry'
