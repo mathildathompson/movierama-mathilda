@@ -24,6 +24,10 @@ module Pages
     def has_error_message?
       page.has_content?('Errors were detected')
     end
+
+    def movie_titles
+      page.all('.mr-movie-title').map(&:text)
+    end
   end
 end
 

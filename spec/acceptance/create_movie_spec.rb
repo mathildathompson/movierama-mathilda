@@ -8,7 +8,9 @@ RSpec.describe 'submit movie', type: :feature do
   let(:page) { Pages::MovieNew.new }
 
   context 'when logged out' do
-    it 'fails'
+    it 'fails' do
+      expect{ page.open }.to raise_error(CanCan::AccessDenied)
+    end
   end
 
   context 'when logged in' do
@@ -20,10 +22,18 @@ RSpec.describe 'submit movie', type: :feature do
         title:       'Bridge over river Kwai',
         description: 'Boom!',
         date:        '1957-10-02')
+
       expect(page).to have_movie_creation_message
     end
 
-    it 'makes the movie visible on the home page'
+    it 'makes the movie visible on the home page' do
+      page.submit(
+        title:       'Bridge over river Kwai',
+        description: 'Boom!',
+        date:        '1957-10-02')
+
+      expect(page.movie_titles).to include('Bridge over river Kwai')
+    end
 
     it 'fails without a date' do
       page.submit(
