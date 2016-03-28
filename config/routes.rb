@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
   
   resource :session, only: %i(create destroy)
@@ -12,4 +13,6 @@ Rails.application.routes.draw do
   end
 
   root 'movies#index'
+
+  mount Sidekiq::Web, at: '/sidekiq'
 end
