@@ -1,10 +1,11 @@
+# This does some
 class EmailNotificationWorker
   include Sidekiq::Worker
 
   def perform(user_id, movie_id)
     UserMailer.notification_email(user_id, movie_id).deliver
-    rescue => e
-      handle_error(e)
+  rescue => e
+    handle_error(e)
   end
 
   private
